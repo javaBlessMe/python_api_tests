@@ -7,7 +7,7 @@ def get_object_coordinates(object_address):
                         headers={"User-Agent":"PostmanRuntime/7.37.3", "Accept":"*/*"},
                         params=params).json() #Открытый API для получения координат по названию
     return response["features"][0]["geometry"]["coordinates"]
-#Входные параметры - название города и ожидамое значение температуры в нем
+#Входные параметры - название города и ожидаемое значение температуры в нем
 @pytest.mark.parametrize("city, true_temp", [("Наро-Фоминск", 24), ("Paris, France", 16)])
 def test_get_weather(city,true_temp):
     coordinates = get_object_coordinates(city)
@@ -16,7 +16,7 @@ def test_get_weather(city,true_temp):
                             headers = {"User-Agent":"PostmanRuntime/7.37.3",
                                        "Accept":"*/*",
                                        "X-Yandex-API-Key":"----------"
-                                       }, # Запрос к Яндекс Погода с координатами города для получения температуры воздухарп
+                                       }, # Запрос к Яндекс Погода с координатами города для получения температуры воздуха
                             params = params).json()
     temp_now = response["fact"]["temp"]
     assert temp_now == true_temp
